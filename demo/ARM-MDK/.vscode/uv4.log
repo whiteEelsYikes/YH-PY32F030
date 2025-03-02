@@ -1,0 +1,16 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\keil_v5\Core\ARM\ARMCC\Bin'
+Rebuild target 'Target 1'
+assembling startup_py32f030xx.s...
+..\startup_py32f030xx.s(128): warning: A1313W: Missing END directive at end of file
+..\startup_py32f030xx.s(128): warning: A1581W: Added 2 bytes of padding at address 0xe
+compiling main.c...
+..\main.c(5): warning:  #1295-D: Deprecated declaration _start - give arg types
+  int _start();
+..\main.c(12): warning:  #1-D: last line of file ends without a newline
+  }
+..\main.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=368 RO-data=96 RW-data=8 ZI-data=1120  
+FromELF: creating hex file...
+"..\build\demo.elf" - 0 Error(s), 4 Warning(s).
+Build Time Elapsed:  00:00:00

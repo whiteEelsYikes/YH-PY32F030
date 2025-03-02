@@ -1,0 +1,12 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\keil_v5\Core\ARM\ARMCC\Bin'
+Build target 'DCHEM_PID'
+compiling main.c...
+compiling at8236x_motor.c...
+linking...
+.\Objects\DCHEM_PID.axf: Error: L6200E: Symbol Advanced_Timer1_PWM_Handle multiply defined (by at8236x_motor.o and main.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 1 error messages.
+".\Objects\DCHEM_PID.axf" - 1 Error(s), 0 Warning(s).
+Target not created.
+Build Time Elapsed:  00:00:01

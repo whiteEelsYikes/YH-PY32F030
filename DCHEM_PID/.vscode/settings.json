@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "compare": "c",
+        "usart.h": "c",
+        "mpu6050.h": "c"
+    }
+}

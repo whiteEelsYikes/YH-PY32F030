@@ -1,0 +1,127 @@
+;****************************************************************************** 
+;* @file    startup_py32f030xx.s
+;* @author  MCU Application Team
+;* @brief   PY32F030xx devices vector table for MDK-ARM toolchain.
+;*          This module performs:
+;*          - Set the initial SP
+;*          - Set the initial PC == Reset_Handler
+;*          - Set the vector table entries with the exceptions ISR address
+;*          - Branches to __main in the C library (which eventually
+;*            calls main()).
+;*          After Reset the CortexM0+ processor is in Thread mode,
+;*          priority is Privileged, and the Stack is set to Main.
+;****************************************************************************** 
+;* @attention
+;*
+;* <h2><center>&copy; Copyright (c) Puya Semiconductor Co.
+;* All rights reserved.</center></h2>
+;*
+;* <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+;* All rights reserved.</center></h2>
+;*
+;* This software component is licensed by ST under BSD 3-Clause license,
+;* the "License"; You may not use this file except in compliance with the
+;* License. You may obtain a copy of the License at:
+;*                        opensource.org/licenses/BSD-3-Clause
+;*
+;****************************************************************************** 
+;* <<< Use Configuration Wizard in Context Menu >>>
+
+; Amount of memory (in bytes) allocated for Stack
+; Tailor this value to your application needs
+; <h> Stack Configuration
+;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
+; </h>
+
+Stack_Size      EQU     0x00000400
+
+                AREA    STACK, NOINIT, READWRITE, ALIGN=3
+Stack_Mem       SPACE   Stack_Size
+__initial_sp
+
+
+; <h> Heap Configuration
+;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+; </h>
+
+Heap_Size       EQU     0x00000000
+
+                AREA    HEAP, NOINIT, READWRITE, ALIGN=3
+__heap_base
+Heap_Mem        SPACE   Heap_Size
+__heap_limit
+
+
+                PRESERVE8
+                THUMB
+
+
+; Vector Table Mapped to Address 0 at Reset
+                AREA    RESET, DATA, READONLY
+                EXPORT  __Vectors
+                EXPORT  __Vectors_End
+                EXPORT  __Vectors_Size
+
+__Vectors       DCD     __initial_sp              ; Top of Stack
+                DCD     Reset_Handler             ; Reset Handler
+                DCD     NMI_Handler               ; NMI Handler
+                DCD     HardFault_Handler         ; Hard Fault Handler
+                DCD     0                         ; Reserved
+                DCD     0                         ; Reserved
+                DCD     0                         ; Reserved
+                DCD     0                         ; Reserved
+                DCD     0                         ; Reserved
+                DCD     0                         ; Reserved
+                DCD     0                         ; Reserved
+                DCD     SVC_Handler               ; SVCall Handler
+                DCD     0                         ; Reserved
+                DCD     0                         ; Reserved
+                DCD     PendSV_Handler            ; PendSV Handler
+                DCD     SysTick_Handler           ; SysTick Handler
+
+__Vectors_End
+
+__Vectors_Size  EQU     __Vectors_End - __Vectors
+
+                AREA    |.text|, CODE, READONLY
+
+
+; Reset Handler
+
+Reset_Handler   PROC
+                EXPORT  Reset_Handler             [WEAK]
+                ; IMPORT  SystemInit
+                IMPORT  main
+                ; LDR     R0, =SystemInit
+                ; BLX     R0
+                LDR     R0, =main
+                BX      R0
+                ENDP
+
+
+; Dummy Exception Handlers (infinite loops which can be modified)
+
+NMI_Handler     PROC
+                EXPORT  NMI_Handler               [WEAK]
+                B       .
+                ENDP
+HardFault_Handler\
+                PROC
+                EXPORT  HardFault_Handler         [WEAK]
+                B       .
+                ENDP
+SVC_Handler     PROC
+                EXPORT  SVC_Handler               [WEAK]
+                B       .
+                ENDP
+PendSV_Handler  PROC
+                EXPORT  PendSV_Handler            [WEAK]
+                B       .
+                ENDP
+SysTick_Handler PROC
+                EXPORT  SysTick_Handler           [WEAK]
+                B       .
+                ENDP
+
+
+;************************ (C) COPYRIGHT Puya *****END OF FILE*******************
